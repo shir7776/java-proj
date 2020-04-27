@@ -56,7 +56,6 @@ public class Polygon implements Geometry {
         // because of Zero Vector if they are in the same point
         Vector edge1 = vertices[vertices.length - 1].subtract(vertices[vertices.length - 2]);
         Vector edge2 = vertices[0].subtract(vertices[vertices.length - 1]);
-        Vector edge3;
         // Cross Product of any subsequent edges will throw an IllegalArgumentException
         // because of Zero Vector if they connect three vertices that lay in the same
         // line.
