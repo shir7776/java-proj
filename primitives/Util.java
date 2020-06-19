@@ -1,5 +1,7 @@
 package primitives;
 
+import java.util.Random;
+
 /**
  * Util class is used for some internal utilities, e.g. controlling accuracy
  * 
@@ -8,7 +10,7 @@ package primitives;
 public abstract class Util {
     // It is binary, equivalent to ~1/1,000,000,000,000 in decimal (12 digits)
     private static final int ACCURACY = -40;
-
+    private static Random rand = new Random();
     // double store format (bit level): seee eeee eeee (1.)mmmm � mmmm
     // 1 bit sign, 11 bits exponent, 53 bits (52 stored) normalized mantissa
     // the number is m+2^e where 1<=m<2
@@ -19,6 +21,19 @@ public abstract class Util {
         // 3. Zero the sign of number bit by mask 0x7FF
         // 4. "De-normalize" the exponent by subtracting 1023
         return (int)((Double.doubleToRawLongBits(num) >> 52) & 0x7FFL) - 1023;
+    }
+
+
+    /**
+     * Ruffles a double number between -1 and 1 but is not zero
+     * @return a random notZero double
+     */
+    public static double getNotZeroRandom() {
+        double result = (rand.nextDouble() * 2d) - 1d;
+        while (isZero(result)) {
+            result = (rand.nextDouble() * 2d) - 1d;
+        }
+        return result;
     }
 
     /**

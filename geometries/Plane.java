@@ -9,7 +9,7 @@ import java.util.List;
 /**
  *class to define a plane
  */
-public class Plane implements Geometry
+public class Plane extends Geometry
 {
     /**
      * plane value
@@ -51,6 +51,35 @@ public class Plane implements Geometry
     }
 
     /**
+     * constructor with color
+     * @param x
+     * @param y
+     * @param z
+     * @param c
+     */
+    public Plane(Point3D x, Point3D y, Point3D z,Color c)
+    {
+        this(x,y,z);
+        _emmission=c;
+
+    }
+
+    /**
+     * constractor with material
+     * @param x
+     * @param y
+     * @param z
+     * @param c
+     * @param material
+     */
+    public Plane(Point3D x, Point3D y, Point3D z,Color c, Material material)
+    {
+        this(x,y,z,c);
+        _material=material;
+
+    }
+
+    /**
      * A constractor that gets point3D and vector normal
      * @param x
      * @param normalVector
@@ -59,6 +88,31 @@ public class Plane implements Geometry
     {
         _normal=new Vector(normalVector);
         _p =new Point3D(x);
+    }
+
+    /**
+     * A constractor that gets point3D and vector normal and color
+     * @param x
+     * @param normalVector
+     * @param c
+     */
+    public Plane(Point3D x,Vector normalVector,Color c)
+    {
+        this(x,normalVector);
+        _emmission=c;
+    }
+
+    /**
+     * A constractor that gets point3D and vector normal and color and material
+     * @param x
+     * @param normalVector
+     * @param c
+     * @param m
+     */
+    public Plane(Point3D x,Vector normalVector,Color c,Material m)
+    {
+        this(x,normalVector,c);
+        _material=m;
     }
     @java.lang.Override
     public Vector getNormal (Point3D p)
@@ -81,8 +135,14 @@ public class Plane implements Geometry
     {
         return String.format("plane: vector: {}, point: {}",_normal.toString(), _p.toString());
     }
+
+    /**
+     * func to find intersection point between plane and a ray
+     * @param ray
+     * @return
+     */
     @Override
-    public List<Point3D> findIntsersections(Ray ray)
+    public List<GeoPoint> findIntsersections(Ray ray)
     {
         if(isZero( this._normal.dotProduct(ray.get_dir()))||isZero(this._normal.dotProduct(this.get_p().subtract(ray.get_p0()))))
             return null;
@@ -90,8 +150,8 @@ public class Plane implements Geometry
         if(t<0)
             return null;
         Point3D p=ray.getPoint(t);
-        List<Point3D> l = new ArrayList<Point3D>();
-        l.add(p);
+        List<GeoPoint> l = new ArrayList<GeoPoint>();
+        l.add(new GeoPoint(this,p));
         return l;
     }
 }

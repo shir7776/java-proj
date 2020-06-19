@@ -11,6 +11,7 @@ public class Ray
      */
     Vector _dir;
     Point3D _p0;
+    private static final double DELTA = 0.1;
 
     /**
      * Constructor that gets a vector and a point
@@ -32,6 +33,31 @@ public class Ray
         _dir =new Vector(r.get_dir().normalized());
         _p0 =new Point3D(r.get_p0());
     }
+
+    /**
+     * constractor that calculates new ray with a delta
+     * @param head
+     * @param direction
+     * @param normal
+     */
+    public Ray(Point3D head, Vector direction, Vector normal)
+    {
+        double x=normal.dotProduct(direction);
+        if(x>0)
+            _p0=head.add(normal.scale(DELTA));
+        else
+        {
+            _p0=head.add(normal.scale(-DELTA));
+
+        }
+        _dir=new Vector(direction.normalized());
+        /**
+         * • The real ray head will be head + normal.scale(±DELTA)
+         *         • The sign + or - is according to the sign of direction·normal
+         *     Question: what happens if isZero(direction·normal) is zero?
+         */
+    }
+
 
     /**
      *

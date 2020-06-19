@@ -1,9 +1,8 @@
 package unittests;
 
 
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.Test;
 import primitives.*;
 import geometries.*;
 
@@ -32,13 +31,13 @@ public class CameraIntegrationTest {
         Sphere sph =  new Sphere( new Point3D(0, 0, 3),1);
 //        Ray ray = cam1.constructRayThroughPixel(3,3,0,0,1,3,3);
 //        List<Point3D> results =  sph.findIntersections(ray);
-        List<Point3D> results;
+        List<Intersectable.GeoPoint> results;
         int count = 0;
         int Nx =3;
         int Ny =3;
         for (int i = 0; i < Ny; ++i) {
             for (int j = 0; j < Nx; ++j) {
-                results = sph.findIntsersections(cam1.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3));
+                results = sph.findIntsersections(cam1.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3).get(0));
                 if (results != null)
                     count += results.size();
             }
@@ -54,7 +53,7 @@ public class CameraIntegrationTest {
     void constructRayThroughPixelWithSphere2() {
         Sphere sph =  new Sphere( new Point3D(0, 0, 2.5),2.5);
 
-        List<Point3D> results;
+        List<Intersectable.GeoPoint> results;
         int count = 0;
         // TODO explanations
         int Nx =3;
@@ -63,7 +62,7 @@ public class CameraIntegrationTest {
         // TODO explanations
         for (int i = 0; i < Ny; ++i) {
             for (int j = 0; j < Nx; ++j) {
-                results = sph.findIntsersections(cam2.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3));
+                results = sph.findIntsersections(cam2.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3).get(0));
                 if (results != null)
                     count += results.size();
             }
@@ -77,7 +76,7 @@ public class CameraIntegrationTest {
     void constructRayThroughPixelWithSphere3() {
         Sphere sph =  new Sphere( new Point3D(0, 0, 2),2);
 
-        List<Point3D> results;
+        List<Intersectable.GeoPoint> results;
         int count = 0;
         // TODO explanations
         int Nx =3;
@@ -86,7 +85,7 @@ public class CameraIntegrationTest {
         // TODO explanations
         for (int i = 0; i < Ny; ++i) {
             for (int j = 0; j < Nx; ++j) {
-                results = sph.findIntsersections(cam2.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3));
+                results = sph.findIntsersections(cam2.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3).get(0));
                 if (results != null)
                     count += results.size();
             }
@@ -101,7 +100,7 @@ public class CameraIntegrationTest {
     void constructRayThroughPixelWithSphere4() {
         Sphere sph =  new Sphere( new Point3D(0, 0, 2.5),4);
 
-        List<Point3D> results;
+        List<Intersectable.GeoPoint> results;
         int count = 0;
         // TODO explanations
         int Nx =3;
@@ -110,7 +109,7 @@ public class CameraIntegrationTest {
         // TODO explanations
         for (int i = 0; i < Ny; ++i) {
             for (int j = 0; j < Nx; ++j) {
-                results = sph.findIntsersections(cam1.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3));
+                results = sph.findIntsersections(cam1.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3).get(0));
                 if (results != null)
                     count += results.size();
             }
@@ -124,7 +123,7 @@ public class CameraIntegrationTest {
     void constructRayThroughPixelWithSphere5() {
         Sphere sph =  new Sphere( new Point3D(0, 0, -1),0.5);
 
-        List<Point3D> results;
+        List<Intersectable.GeoPoint> results;
         int count = 0;
         // TODO explanations
         int Nx =3;
@@ -133,7 +132,7 @@ public class CameraIntegrationTest {
         // TODO explanations
         for (int i = 0; i < Ny; ++i) {
             for (int j = 0; j < Nx; ++j) {
-                results = sph.findIntsersections(cam1.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3));
+                results = sph.findIntsersections(cam1.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3).get(0));
                 if (results != null)
                     count += results.size();
             }
@@ -147,7 +146,7 @@ public class CameraIntegrationTest {
     void constructRayThroughPixelWithTriangle1() {
         Triangle triangle =  new Triangle(new Point3D(0,-1,2),new Point3D(1,1,2),new Point3D(-1,1,2));
 
-        List<Point3D> results;
+        List<Intersectable.GeoPoint> results;
         int count = 0;
 
         int Nx =3;
@@ -155,7 +154,7 @@ public class CameraIntegrationTest {
 
         for (int i = 0; i < Ny; ++i) {
             for (int j = 0; j < Nx; ++j) {
-                results = triangle.findIntsersections(cam1.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3));
+                results = triangle.findIntsersections(cam1.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3).get(0));
                 if (results != null)
                     count += results.size();
             }
@@ -169,7 +168,7 @@ public class CameraIntegrationTest {
     void constructRayThroughPixelWithTriangle2() {
         Triangle triangle =  new Triangle(new Point3D(0,-20,2),new Point3D(1,1,2),new Point3D(-1,1,2));
 
-        List<Point3D> results;
+        List<Intersectable.GeoPoint> results;
         int count = 0;
 
         int Nx =3;
@@ -177,7 +176,7 @@ public class CameraIntegrationTest {
 
         for (int i = 0; i < Ny; ++i) {
             for (int j = 0; j < Nx; ++j) {
-                results = triangle.findIntsersections(cam1.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3));
+                results = triangle.findIntsersections(cam1.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3).get(0));
                 if (results != null)
                     count += results.size();
             }
@@ -192,7 +191,7 @@ public class CameraIntegrationTest {
     void constructRayThroughPixelWithPlane1() {
         Plane plane = new Plane(new Point3D(0, -20, 2), new Point3D(1, 1, 2), new Point3D(-1, 1, 2));
 
-        List<Point3D> results;
+        List<Intersectable.GeoPoint> results;
         int count = 0;
         // TODO explanations
         int Nx = 3;
@@ -201,7 +200,7 @@ public class CameraIntegrationTest {
         // TODO explanations
         for (int i = 0; i < Ny; ++i) {
             for (int j = 0; j < Nx; ++j) {
-                results = plane.findIntsersections(cam1.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3));
+                results = plane.findIntsersections(cam1.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3).get(0));
                 if (results != null)
                     count += results.size();
             }
@@ -216,7 +215,7 @@ public class CameraIntegrationTest {
     void constructRayThroughPixelWithPlane2() {
         Plane plane = new Plane(new Point3D(0, -20, 5), new Point3D(1, 1, 2), new Point3D(-1, 1, 2));
 
-        List<Point3D> results;
+        List<Intersectable.GeoPoint> results;
         int count = 0;
         // TODO explanations
         int Nx = 3;
@@ -225,7 +224,7 @@ public class CameraIntegrationTest {
         // TODO explanations
         for (int i = 0; i < Ny; ++i) {
             for (int j = 0; j < Nx; ++j) {
-                results = plane.findIntsersections(cam1.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3));
+                results = plane.findIntsersections(cam1.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3).get(0));
                 if (results != null)
                     count += results.size();
             }
@@ -239,7 +238,7 @@ public class CameraIntegrationTest {
     void constructRayThroughPixelWithPlane3() {
         Plane plane = new Plane(new Point3D(0, -20, 50), new Point3D(1, 1, 2), new Point3D(-1, 1, 2));
 
-        List<Point3D> results;
+        List<Intersectable.GeoPoint> results;
         int count = 0;
         // TODO explanations
         int Nx = 3;
@@ -248,7 +247,7 @@ public class CameraIntegrationTest {
         // TODO explanations
         for (int i = 0; i < Ny; ++i) {
             for (int j = 0; j < Nx; ++j) {
-                results = plane.findIntsersections(cam1.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3));
+                results = plane.findIntsersections(cam1.constructRayThroughPixel(Nx, Ny, j, i, 1, 3, 3).get(0));
                 if (results != null)
                     count += results.size();
             }

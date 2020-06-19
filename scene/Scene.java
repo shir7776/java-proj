@@ -2,17 +2,39 @@ package scene;
 
 import elements.AmbientLight;
 import elements.Camera;
+import elements.LightSource;
 import geometries.Geometries;
 import geometries.Intersectable;
 import primitives.Color;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class Scene {
+    /**
+     * value scene
+     */
     String _name;
     Color _background;
     AmbientLight _ambientLight;
     Geometries _geometries;
     Camera _camera;
     double _distance;
+    List<LightSource> _lights;
+    double _focusLength=100;
+    /**the size of the camera aperture - determines how blur the object not in focus would be (zero by default)*/
+    double _apertureSize=5;
+    /**the size of rayBeam - determines how smooth blur the object not in focus would be*/
+    int _dofRayBeamSize=0;
+    // *****************
+    /**
+     * get lights
+     *
+     * @return
+     */
+    public List<LightSource> get_lights() {
+        return _lights;
+    }
 
     /**
      * constructor
@@ -21,6 +43,7 @@ public class Scene {
     public Scene(String _name) {
         this._name = _name;
         _geometries=new Geometries();
+        _lights=new LinkedList<LightSource>();
     }
 
     /**
@@ -117,6 +140,39 @@ public class Scene {
             _geometries.add(geometries[i]);
         }
 
+    }
+    /**
+     * @return aperture size - how blur the unfocused objects are
+     */
+    public double getApertureSize() {
+        return _apertureSize;
+    }
+
+    /**
+     * @return focus length of the scene - how far the focused objects would be
+     */
+    public double getFocusLength() {
+        return _focusLength;
+    }
+
+    /**
+     *
+     * @return the amount of rays for the unfocused blur
+     */
+    public int getdofRayBeamSize() {
+        return _dofRayBeamSize;
+    }
+    /**
+     * add liight to the list light
+     * @param lights
+     */
+    public void addLights(LightSource... lights)
+    {
+        for(int i =0;i<lights.length;i++)
+        {
+            _lights.add(lights[i]);
+
+        }
     }
 
 }

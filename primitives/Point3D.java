@@ -110,7 +110,7 @@ public class Point3D
      */
     public double distance(Point3D p)
     {
-        return Math.sqrt(distanceSquared(p));/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        return Math.sqrt(distanceSquared(p));
     }
 
     @Override

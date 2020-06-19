@@ -10,10 +10,17 @@ public class Geometries implements Intersectable
 {
     protected ArrayList<Intersectable> interList;
 
+    /**
+     *
+     * @return list of inersection points
+     */
     public List<Intersectable> getInterList() {
         return interList;
     }
 
+    /**
+     * constructor
+     */
     public Geometries() {
         this.interList = new ArrayList<Intersectable>();//we chose array list because we need to go throgh the list easyly and not add and delete objects frequently
     }
@@ -22,6 +29,10 @@ public class Geometries implements Intersectable
         this.add(geometries);
     }
 
+    /**
+     * add geometries to list of geometries
+     * @param geometries
+     */
     public void add(Intersectable... geometries)
     {
         for (int i=0;i<geometries.length;i++)
@@ -36,11 +47,11 @@ public class Geometries implements Intersectable
      * @return list of point3D, for all intsersections
      */
     @Override
-    public List<Point3D> findIntsersections(Ray ray)
+    public List<GeoPoint> findIntsersections(Ray ray)
     {
 
-        List<Point3D> l = new ArrayList<Point3D>();
-        List<Point3D> l1 = new ArrayList<Point3D>();
+        List<GeoPoint> l = new ArrayList<GeoPoint>();
+        List<GeoPoint> l1 = new ArrayList<GeoPoint>();
         for(int i=0;i<this.interList.size();i++)
         {
             l1 =  this.interList.get(i).findIntsersections(ray);

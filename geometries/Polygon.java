@@ -10,7 +10,7 @@ import static primitives.Util.*;
  *
  * @author Dan
  */
-public class Polygon implements Geometry {
+public class Polygon extends Geometry {
     /**
      * List of polygon's vertices
      */
@@ -19,6 +19,7 @@ public class Polygon implements Geometry {
      * Associated plane in which the polygon lays
      */
     protected Plane _plane;
+
 
     /**
      * Polygon constructor based on vertices list. The list must be ordered by edge
@@ -38,16 +39,20 @@ public class Polygon implements Geometry {
      *                                  <li>Three consequent vertices lay in the
      *                                  same line (180&#176; angle between two
      *                                  consequent edges)
+     *                                  <li>The polygon is concave (not convex)</li>
      *                                  </ul>
      */
-    public Polygon(Point3D... vertices) {
+    public Polygon(Color emissionLight, Material material, Point3D... vertices) {
+
+        super(emissionLight,material);
+
         if (vertices.length < 3)
             throw new IllegalArgumentException("A polygon can't have less than 3 vertices");
         _vertices = List.of(vertices);
         // Generate the plane according to the first three vertices and associate the
         // polygon with this plane.
         // The plane holds the invariant normal (orthogonal unit) vector to the polygon
-        _plane = new Plane(vertices[0], vertices[1], vertices[2]);
+        _plane = new Plane(vertices[0], vertices[1], vertices[2],emissionLight,material);
         if (vertices.length == 3) return; // no need for more tests for a Triangle
 
         Vector n = _plane.getNormal();
@@ -79,12 +84,68 @@ public class Polygon implements Geometry {
         }
     }
 
+    /**
+     * constructor with color
+     * @param emissionLight
+     * @param vertices
+     */
+    public Polygon(Color emissionLight, Point3D... vertices) {
+        this(emissionLight,new Material(0,0,0),vertices);
+    }
+
+    /**
+     * constructor with default material and color
+     * @param vertices
+     */
+    public Polygon(Point3D... vertices) {
+        this(Color.BLACK,new Material(0,0,0),vertices);
+//        this(new Color(java.awt.Color.RED),new Material(0,0,0),vertices);
+    }
+
+
+    /**
+     *
+     * @param point
+     * @return normal in point
+     */
     @Override
     public Vector getNormal(Point3D point) {
         return _plane.getNormal();
     }
 
+    /**
+     * a func to find the intersections of a ray and poligon
+     * @param ray
+     * @return
+     */
     @Override
-    public List<Point3D> findIntsersections(Ray ray)
-    {return null;}
+    public List<GeoPoint> findIntsersections(Ray ray)
+    {
+        List<GeoPoint> intersections = _plane.findIntsersections(ray);
+        if (intersections == null)
+            return null;
+
+        Point3D p0 = ray.get_p0();
+        Vector v = ray.get_dir();
+
+        Vector v1  = _vertices.get(1).subtract(p0);
+        Vector v2 = _vertices.get(0).subtract(p0);
+        double sign = v.dotProduct(v1.crossProduct(v2));
+        if (isZero(sign))
+            return null;
+
+        boolean positive = sign > 0;
+
+        for (int i = _vertices.size() - 1; i > 0; --i) {
+            v1 = v2;
+            v2 = _vertices.get(i).subtract(p0);
+            sign = alignZero(v.dotProduct(v1.crossProduct(v2)));
+            if (isZero(sign)) return null;
+            if (positive != (sign >0)) return null;
+        }
+
+        intersections.get(0).geometry = this;
+
+        return intersections;
+    }
 }

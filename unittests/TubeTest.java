@@ -9,7 +9,7 @@ import geometries.*;
 import primitives.*;
 
 public class TubeTest {
-
+//test to get the right normal
     @Test
     public void getNormal()
     {
@@ -18,9 +18,5 @@ public class TubeTest {
         assertEquals("getNormal() result is not good",new Vector(0,0,1),t.getNormal(new Point3D(0,0.5,2)));
     }
 
-//    @Test
-//    public void findIntsersections()
-//    {
-//
-//    }
+
 }

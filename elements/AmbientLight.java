@@ -2,10 +2,10 @@ package elements;
 import primitives.*;
 
 
-public class AmbientLight {
+public class AmbientLight extends Light{
 Color Ia;
 double Ka;
-Color _intensity;
+
 
     /**
      * constractor
@@ -14,9 +14,9 @@ Color _intensity;
      */
     public AmbientLight(Color c, double ka)
     {
+        super(c.scale(ka));
         Ka = ka;
         Ia=c;
-        _intensity=Ia.scale(Ka);
     }
 
     /**

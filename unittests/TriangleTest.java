@@ -1,5 +1,6 @@
 package unittests;
 
+import geometries.Intersectable;
 import geometries.Polygon;
 import geometries.Triangle;
 import org.junit.Test;
@@ -29,7 +30,7 @@ public class TriangleTest {
         Triangle triangle = new Triangle(new Point3D(1,0,0), new Point3D(0,1,0), new Point3D(0,0,0));
         // ============ Equivalence Partitions Tests ==============
         //Inside polygon/triangle
-        List<Point3D> result = triangle.findIntsersections(new Ray( new Vector(0,0,-1),new Point3D(0.3, 0.3, 1)));
+        List<Intersectable.GeoPoint> result = triangle.findIntsersections(new Ray( new Vector(0,0,-1),new Point3D(0.3, 0.3, 1)));
         assertEquals("not good it is in the triangel" ,1,result.size());
         assertEquals("Ray crosses triangel", List.of(new Point3D(0.3, 0.3, 0)), result);
 

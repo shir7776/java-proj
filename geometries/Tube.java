@@ -8,8 +8,10 @@ import java.util.List;
 /**
  *class to define a tube
  */
-public class Tube extends RadialGeometry implements Geometry
+public class Tube extends RadialGeometry
 {
+
+
     /**
      * tube value
      */
@@ -33,6 +35,31 @@ public class Tube extends RadialGeometry implements Geometry
     {
         super(radius);
         _axisRay =new Ray(r);
+        
+    }
+
+    /**
+     * constractor whit color
+     * @param r
+     * @param radius
+     * @param c
+     */
+    public Tube(Ray r,double radius,Color c)
+    {
+        this(r,radius,c,new Material(0,0,0));
+    }
+
+    /**
+     * constractor whit color and material
+     * @param _axisRay
+     * @param radius
+     * @param c
+     * @param material
+     */
+    public Tube(Ray _axisRay,double radius,Color c,Material material) {
+        super(radius,c,material);
+        this._axisRay = _axisRay;
+
     }
 
     /**
@@ -40,29 +67,7 @@ public class Tube extends RadialGeometry implements Geometry
      * @param p
      * @return
      */
-  //  @java.lang.Override
-//    public Vector getNormal(Point3D p)
-//    {
-////        double t = _axisRay.get_dir().dotProduct(p.subtract(_axisRay.get_p0()));
-////        Point3D O = _axisRay.get_p0().add(_axisRay.get_dir().scale(t));
-////        Vector n = (p.subtract(O)).normalized();
-//
-//       // return n;
-//    }
-
-
-    //n = normalize(P - O)
-
-    // O is projection of P on cylinder's ray:
-
-    // t = v (P – P0)
-
-    // O = P0 + tv
-
-
-
     @Override
-
     public Vector getNormal(Point3D p) {
 
         Point3D p0 = _axisRay.get_p0();
@@ -80,7 +85,13 @@ public class Tube extends RadialGeometry implements Geometry
         return n;
 
     }
-    public List<Point3D> findIntsersections(Ray ray)
+
+    /**
+     * find Intsersections method
+     * @param ray
+     * @return
+     */
+    public List<GeoPoint> findIntsersections(Ray ray)
     {
         return null;
     }

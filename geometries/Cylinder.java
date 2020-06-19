@@ -6,12 +6,33 @@ import java.util.List;
 /**
  *class cylinder to define a cylinder
  */
-public class Cylinder extends Tube implements Geometry
+public class Cylinder extends Tube
 {
     /**
      *cylinder value
      */
     double _height;
+
+    /**
+     * constructor
+     * @param r
+     * @param radius
+     * @param c
+     */
+    public Cylinder(Ray r, double radius,Color c) {
+        super(r, radius,c);
+    }
+
+    /**
+     * constructor
+     * @param r
+     * @param radius
+     * @param c
+     * @param material
+     */
+    public Cylinder(Ray r, double radius,Color c,Material material) {
+        super(r, radius,c,material);
+    }
 
     /**
      *
@@ -28,10 +49,9 @@ public class Cylinder extends Tube implements Geometry
      * @param point
      * @return
      */
-    @Override                        //////////////////////////////////////////////////////////////////////////////////
+    @Override
     public Vector getNormal(Point3D point)
     {
-
         return super.getNormal(point);
     }
 
@@ -47,6 +67,8 @@ public class Cylinder extends Tube implements Geometry
         _height =heightX;
     }
 
+
+
     /**
      * tostring func
      * @return
@@ -56,7 +78,7 @@ public class Cylinder extends Tube implements Geometry
         return String.format("Cylinder: height", _height);
     }
     @Override
-    public List<Point3D> findIntsersections(Ray ray)
+    public List<GeoPoint> findIntsersections(Ray ray)
     {return null;}
 
 

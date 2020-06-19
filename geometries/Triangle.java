@@ -9,7 +9,7 @@ import static primitives.Util.isZero;
 /**
  *class to define a triangle
  */
-public class Triangle extends Polygon implements Geometry
+public class Triangle extends Polygon
 {
     /**
      *A constractor that gets 3 point3D
@@ -20,6 +20,44 @@ public class Triangle extends Polygon implements Geometry
     public Triangle(Point3D a,Point3D b,Point3D c)
     {
         super(a,b,c);
+    }
+
+    /**
+     * constractor whit color
+     * @param a
+     * @param b
+     * @param c
+     * @param col
+     */
+    public Triangle(Point3D a,Point3D b,Point3D c,Color col)
+    {
+        this(a,b,c,col,new Material(0,0,0));
+    }
+
+    /**
+     * constractor whit color and matriel
+     * @param a
+     * @param b
+     * @param c
+     * @param col
+     * @param material
+     */
+    public Triangle(Point3D a,Point3D b,Point3D c,Color col,Material material)
+    {
+        super(col,material,a,b,c);
+    }
+
+    /**
+     * constructor EZER
+     * @param col
+     * @param material
+     * @param a
+     * @param b
+     * @param c
+     */
+    public Triangle(Color col,Material material, Point3D a,Point3D b,Point3D c)
+    {
+        this( a, b, c, col, material);
     }
     public @Override String toString ()
     {
@@ -37,10 +75,16 @@ public class Triangle extends Polygon implements Geometry
         return super.getNormal(point);
         //return null;
     }
+
+    /**
+     * a func to find intersection with a triangle
+     * @param ray
+     * @return
+     */
     @java.lang.Override
-    public List<Point3D> findIntsersections(Ray ray)
+    public List<GeoPoint> findIntsersections(Ray ray)
     {
-        List<Point3D> intersections = _plane.findIntsersections(ray);
+        List<GeoPoint> intersections = _plane.findIntsersections(ray);
         if (intersections == null)
             return null;
 

@@ -34,7 +34,7 @@ public class PlaneTest {
                 plane.findIntsersections(new Ray(new Vector(1, 1, 1),new Point3D(-1, 0, 5))));
 
         // TC02: Ray starts before and crosses the plane (1 points)
-        List<Point3D> result = plane.findIntsersections(new Ray(new Vector(-1, -1, -1),new Point3D(1, 1, 2)));
+        List<Intersectable.GeoPoint> result = plane.findIntsersections(new Ray(new Vector(-1, -1, -1),new Point3D(1, 1, 2)));
         assertEquals("Wrong number of points", 1, result.size());
 
         assertEquals("Ray crosses plane", List.of(new Point3D(0, 0, 1)), result);

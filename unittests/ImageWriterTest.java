@@ -1,14 +1,15 @@
 package unittests;
 
-import org.junit.jupiter.api.Test;
+
+import org.junit.Test;
 import renderer.ImageWriter;
 
 import java.awt.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+
 
 class ImageWriterTest {
-
+//test to check that image writer works correctly
     @Test
     void writeToImage() {
         String imagename = "img";

@@ -1,6 +1,7 @@
 package unittests;
 
 import geometries.Geometries;
+import geometries.Intersectable;
 import geometries.Plane;
 import geometries.Sphere;
 import org.junit.Test;
@@ -33,7 +34,7 @@ public class GeometriesTest {
     public void findIntsersections() {
 
         Geometries geometries = new Geometries();
-        List<Point3D> result;
+        List<Intersectable.GeoPoint> result;
         //TC1: the list is empty
         result = geometries.findIntsersections(new Ray(new Vector(1, 0, 0), new Point3D(6, 6, 6)));
 
